@@ -108,5 +108,7 @@ extension LoginViewController {
     
     func postLogin() {
         print("로그인 통신")
+        let nav = OnboardingViewController()
+        self.navigationController?.pushViewController(nav, animated: false)
     }
 }

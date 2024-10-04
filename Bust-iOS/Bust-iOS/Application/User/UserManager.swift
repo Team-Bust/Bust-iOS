@@ -14,10 +14,12 @@ final class UserManager {
     
     @UserDefaultWrapper<String>(key: "socialToken") private(set) var socialToken
     @UserDefaultWrapper<String>(key: "accessToken") private(set) var accessToken
+    @UserDefaultWrapper<Bool>(key: "doOnboarding") private(set) var doOnboarding
     
     var getSocialToken: String { return self.socialToken ?? "" }
     var hasAccessToken: Bool { return self.accessToken != nil }
     var getAccessToken: String { return self.accessToken ?? "" }
+    var getOnboarding: Bool { return self.doOnboarding ?? false }
     
     private init() {}
 }
@@ -30,6 +32,10 @@ extension UserManager {
     
     func updateToken(_ accessToken: String) {
         self.accessToken = accessToken
+    }
+    
+    func updateOnboarding() {
+        self.doOnboarding = true
     }
     
     func logout() {

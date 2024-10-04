@@ -44,7 +44,7 @@ extension OnboardingViewController {
     
     @objc
     func nextButtonTapped() {
-        // usermanager 업데이트
+//        UserManager.shared.updateOnboarding()
 //        let nav = TabBarController()
 //        self.navigationController?.pushViewController(nav, animated: true)
     }

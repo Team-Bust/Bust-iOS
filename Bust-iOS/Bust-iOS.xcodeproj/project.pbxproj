@@ -19,6 +19,7 @@
 		A48F506F2CB01702004F3A74 /* KakaoSDKTalk in Frameworks */ = {isa = PBXBuildFile; productRef = A48F506E2CB01702004F3A74 /* KakaoSDKTalk */; };
 		A48F50712CB01702004F3A74 /* KakaoSDKTemplate in Frameworks */ = {isa = PBXBuildFile; productRef = A48F50702CB01702004F3A74 /* KakaoSDKTemplate */; };
 		A48F50732CB01702004F3A74 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = A48F50722CB01702004F3A74 /* KakaoSDKUser */; };
+		A48F507B2CB03153004F3A74 /* usket.NMaps-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = A48F507A2CB03153004F3A74 /* usket.NMaps-SPM */; };
 		A4B716B12CAFF78000F28562 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A4B716B02CAFF78000F28562 /* SnapKit */; };
 		A4B716B42CAFF7B700F28562 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A4B716B32CAFF7B700F28562 /* Moya */; };
 /* End PBXBuildFile section */
@@ -53,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A48F507B2CB03153004F3A74 /* usket.NMaps-SPM in Frameworks */,
 				A4B716B42CAFF7B700F28562 /* Moya in Frameworks */,
 				A48F50652CB01702004F3A74 /* KakaoSDKCommon in Frameworks */,
 				A48F50692CB01702004F3A74 /* KakaoSDKFriendCore in Frameworks */,
@@ -123,6 +125,7 @@
 				A48F506E2CB01702004F3A74 /* KakaoSDKTalk */,
 				A48F50702CB01702004F3A74 /* KakaoSDKTemplate */,
 				A48F50722CB01702004F3A74 /* KakaoSDKUser */,
+				A48F507A2CB03153004F3A74 /* usket.NMaps-SPM */,
 			);
 			productName = "Bust-iOS";
 			productReference = A4B716932CAFF67800F28562 /* Bust-iOS.app */;
@@ -156,6 +159,7 @@
 				A4B716AF2CAFF78000F28562 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				A4B716B22CAFF7B700F28562 /* XCRemoteSwiftPackageReference "Moya" */,
 				A48F505B2CB01702004F3A74 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				A48F50792CB03153004F3A74 /* XCRemoteSwiftPackageReference "usket" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A4B716942CAFF67800F28562 /* Products */;
@@ -248,6 +252,8 @@
 		};
 		A4B716A92CAFF67A00F28562 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = A4B716952CAFF67800F28562 /* Bust-iOS */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -311,6 +317,8 @@
 		};
 		A4B716AA2CAFF67A00F28562 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = A4B716952CAFF67800F28562 /* Bust-iOS */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -397,6 +405,14 @@
 				minimumVersion = 2.22.7;
 			};
 		};
+		A48F50792CB03153004F3A74 /* XCRemoteSwiftPackageReference "usket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/9oHigh/usket.NMaps-SPM";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		A4B716AF2CAFF78000F28562 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -475,6 +491,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A48F505B2CB01702004F3A74 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		A48F507A2CB03153004F3A74 /* usket.NMaps-SPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A48F50792CB03153004F3A74 /* XCRemoteSwiftPackageReference "usket" */;
+			productName = "usket.NMaps-SPM";
 		};
 		A4B716B02CAFF78000F28562 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

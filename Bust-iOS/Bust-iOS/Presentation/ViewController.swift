@@ -10,8 +10,10 @@ import UIKit
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
-        view.backgroundColor = .blue
         super.viewDidLoad()
+        
+//        let mapView = NMFMapView(frame: view.frame)
+//        view.addSubview(mapView)
         // Do any additional setup after loading the view.
     }
 

@@ -8,95 +8,85 @@
 import UIKit
 
 enum FontName: String {
-    case PretendardMedium = "Pretendard-Medium"
     case PretendardSemiBold = "Pretendard-SemiBold"
     case PretendardBold = "Pretendard-Bold"
-    case PretendardExtraBold = "Pretendard-ExtraBold"
     case PretendardRegular = "Pretendard-Regular"
 }
 
 enum FontLevel {
-    case head1
-    case head2
-    case head3
-    case head4
+    case heading1
+    case heading2
+    case heading3
     
-    case body1Bold
-    case body1Reg
-    case body2Bold
-    case body2Reg
-    case body3Bold
-    case body3Medi
-    case body3Reg
-    
-    case detail1Bold
-    case detail1Reg
-    case detail2Bold
-    case detail2Reg
-    case detail2Semi
-    case detail3Semi
-    case detail3Reg
+    case title1
+    case subtitle1
+    case body1
+    case body11
+    case body2
+    case body21
+    case caption1
+    case caption11
 }
 
 extension FontLevel {
     
     var fontWeight: String {
         switch self {
-        case .head1:
-            return FontName.PretendardExtraBold.rawValue
-        case .head2, .head3, .head4,
-                .body1Bold, .body2Bold, .body3Bold,
-                .detail1Bold, .detail2Bold:
+        case .heading1, .heading2, .heading3, .title1, .body1, .body2, .caption1:
             return FontName.PretendardBold.rawValue
-        case .body1Reg, .body2Reg, .body3Reg,
-                .detail1Reg, .detail2Reg, .detail3Reg:
+        case .body11, .body21, .caption11:
             return FontName.PretendardRegular.rawValue
-        case .body3Medi:
-            return FontName.PretendardMedium.rawValue
-        case .detail3Semi, .detail2Semi:
+        case .subtitle1:
             return FontName.PretendardSemiBold.rawValue
         }
     }
     
     var fontSize: CGFloat {
         switch self {
-        case .head1:
+        case .heading1:
+            return 48
+        case .heading2:
+            return 28
+        case .heading3:
             return 24
-        case .head2:
-            return 22
-        case .head3:
+        case .title1:
             return 20
-        case .head4:
+        case .subtitle1:
             return 18
-        case .body1Bold, .body1Reg:
+        case .body1, .body11:
             return 16
-        case .body2Bold, .body2Reg:
-            return 15
-        case .body3Bold, .body3Medi, .body3Reg:
+        case .body2, .body21:
             return 14
-        case .detail1Bold, .detail1Reg:
-            return 13
-        case .detail2Bold, .detail2Reg, .detail2Semi:
+        case .caption1, .caption11:
             return 12
-        case .detail3Semi, .detail3Reg:
-            return 11
         }
     }
     
     var lineHeight: CGFloat {
         switch self {
-        case .head1, .head2, .head3, .head4:
-            return self.fontSize * 1.5
-        case .body3Reg:
-            return self.fontSize * 1.8
-        default:
-            return self.fontSize * 1.4
+        case .heading1:
+            return 60
+        case .heading2:
+            return 34
+        case .heading3:
+            return 30
+        case .title1:
+            return 26
+        case .subtitle1:
+            return 24
+        case .body1, .body11:
+            return 22
+        case .body2, .body21:
+            return 20
+        case .caption1, .caption11:
+            return 18
         }
     }
 }
 
 extension UIFont {
-    static func hisFont(_ fontLevel: FontLevel) -> UIFont {
+    
+    static func fontBust(_ fontLevel: FontLevel) -> UIFont {
         let font = UIFont(name: fontLevel.fontWeight, size: fontLevel.fontSize)!
         return font
     }

@@ -19,7 +19,7 @@ final class MyPlaceDetailView: UIView {
         return view
     }()
     
-    private let backButton = {
+    let backButton = {
         let button = UIButton()
         button.setImage(.icArrowBackTouch, for: .normal)
         return button

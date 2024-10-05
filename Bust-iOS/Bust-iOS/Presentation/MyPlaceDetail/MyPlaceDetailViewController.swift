@@ -26,6 +26,7 @@ final class MyPlaceDetailViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        setAddTarget()
         
         navigationController?.navigationBar.isHidden = true
     }
@@ -56,5 +57,14 @@ extension MyPlaceDetailViewController {
     
     // MARK: - Methods
     
+    private func setAddTarget() {
+        myPlaceDetailView.backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
+    }
+    
     // MARK: - @objc Methods
+    
+    @objc
+    private func backButtonDidTap() {
+        navigationController?.popViewController(animated: true)
+    }
 }

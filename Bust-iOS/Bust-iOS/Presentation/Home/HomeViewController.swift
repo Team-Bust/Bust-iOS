@@ -13,11 +13,18 @@ final class HomeViewController: UIViewController {
     
     private let homeView = HomeView()
     private lazy var cv = homeView.collectionView
+    private var homeInfoData = HomeInfoResponseDto(username: "", tickets: 0, grade: "", gameCount: 0, recommendedPlaces: [])
     
     // MARK: - Life Cycles
     
     override func loadView() {
         self.view = homeView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        getHomeInfo()
     }
     
     override func viewDidLoad() {
@@ -44,6 +51,7 @@ extension HomeViewController {
     func buttonTapped(_ sender: UIButton) {
         switch sender {
         case homeView.missionStartButton:
+            self.getHomeGame()
             self.tabBarController?.selectedIndex = 1
         case homeView.registerPlaceButton:
             let nav = AddLocationViewController()
@@ -77,6 +85,27 @@ extension HomeViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = HomePlaceCollectionViewCell.dequeueReusableCell(collectionView: cv,
                                                                    indexPath: indexPath)
+        if homeInfoData.recommendedPlaces.count > 0 {
+            cell.bindHomePlace(model: homeInfoData.recommendedPlaces[indexPath.item])
+        }
         return cell
+    }
+}
+
+extension HomeViewController {
+    
+    func getHomeInfo() {
+        HomeService.shared.getHomeInfo { response in
+            guard let data = response?.data else { return }
+            self.homeInfoData = data
+            self.homeView.bindHomeView(dto: data)
+            self.cv.reloadData()
+        }
+    }
+    
+    func getHomeGame() {
+        HomeService.shared.getHomeGame {  response in
+            guard (response?.data) != nil else { return }
+        }
     }
 }

@@ -77,12 +77,15 @@ extension SettingViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = SettingTableViewCell.dequeueReusableCell(tableView: settingView.settingServiceTableView, indexPath: indexPath)
+        print(indexPath)
         if indexPath.section == 0 {
+            let cell = SettingTableViewCell.dequeueReusableCell(tableView: settingView.settingServiceTableView, indexPath: indexPath)
             cell.configureSettingCell(menu: serviceMenu[indexPath.row])
+            return cell
         } else {
+            let cell = SettingTableViewCell.dequeueReusableCell(tableView: settingView.settingAccountTableView, indexPath: indexPath)
             cell.configureSettingCell(menu: accountMenu[indexPath.row])
+            return cell
         }
-        return cell
     }
 }

@@ -65,14 +65,14 @@ final class AfterBottomSheetView: PassThroughView {
         return label
     }()
     
-    private let checkAnswerButton = {
+    let checkAnswerButton = {
         let button = UIButton()
         button.setImage(.btnCheckAnswer, for: .normal)
         button.setImage(.btnCheckAnswer, for: .selected)
         return button
     }()
     
-    private let useTicketButton = {
+    let useTicketButton = {
         let button = UIButton()
         button.setImage(.btnUseTicket, for: .normal)
         button.setImage(.btnUseTicket, for: .selected)
@@ -234,7 +234,7 @@ final class AfterBottomSheetView: PassThroughView {
         reviewContentLabel.text = "\(UserManager.shared.getUsername) \(data)"
         reviewContentLabel.asFontColor(targetString: "\(UserManager.shared.getUsername)",
                                        font: .fontBust(.caption1),
-                                       color: .gray500)
+                                       color: .black)
         reviewContentLabel.asLineHeight(.caption11)
     }
 }

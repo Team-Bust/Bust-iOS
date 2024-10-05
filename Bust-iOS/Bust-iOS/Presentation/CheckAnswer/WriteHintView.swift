@@ -29,7 +29,7 @@ final class WriteHintView: UIView {
         return label
     }()
     
-    private let hintTextField = {
+    let hintTextField = {
         let textField = UITextField()
         textField.backgroundColor = .gray100
         textField.placeholder = "힌트를 작성해주세요."
@@ -100,7 +100,7 @@ extension WriteHintView {
         }
         
         warningLabel.snp.makeConstraints {
-            $0.top.equalTo(hintTextField.snp.bottom).offset(4)
+            $0.top.equalTo(hintTextField.snp.bottom).offset(8)
             $0.leading.equalTo(hintLabel)
         }
     }

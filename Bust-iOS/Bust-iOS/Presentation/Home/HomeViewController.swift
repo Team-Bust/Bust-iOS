@@ -12,6 +12,7 @@ import SnapKit
 final class HomeViewController: UIViewController {
     
     private let homeView = HomeView()
+    private lazy var cv = homeView.collectionView
     
     // MARK: - Life Cycles
     
@@ -24,6 +25,7 @@ final class HomeViewController: UIViewController {
         
         setUI()
         setAddTarget()
+        setDelegate()
     }
 }
 
@@ -34,7 +36,47 @@ extension HomeViewController {
     }
     
     func setAddTarget() {
-        
+        homeView.missionStartButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        homeView.registerPlaceButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
+    @objc
+    func buttonTapped(_ sender: UIButton) {
+        switch sender {
+        case homeView.missionStartButton:
+            self.tabBarController?.selectedIndex = 1
+        case homeView.registerPlaceButton:
+            let nav = AddLocationViewController()
+            nav.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(nav, animated: true)
+        default:
+            break
+        }
+    }
+    
+    func setDelegate() {
+        cv.delegate = self
+        cv.dataSource = self
+    }
+    
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.item)
+    }
+}
+
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = HomePlaceCollectionViewCell.dequeueReusableCell(collectionView: cv,
+                                                                   indexPath: indexPath)
+        return cell
+    }
 }

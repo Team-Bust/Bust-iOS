@@ -15,6 +15,17 @@ final class HomeView: UIView {
     
     private let logoImageView = UIImageView(image: .logo)
     
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        return scrollView
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     private let homeStatusView = {
         let view = UIView()
         view.backgroundColor = .gray100
@@ -112,18 +123,42 @@ final class HomeView: UIView {
         return label
     }()
     
-    private let missionStartButton = {
+    let missionStartButton = {
         let button = UIButton()
         button.setImage(.btnMissionStart, for: .normal)
         button.setImage(.btnMissionStart, for: .selected)
         return button
     }()
     
-    private let registerPlaceButton = {
+    let registerPlaceButton = {
         let button = UIButton()
         button.setImage(.btnRegisterPlace, for: .normal)
         button.setImage(.btnRegisterPlace, for: .selected)
         return button
+    }()
+    
+    private let placeTitleLabel = {
+        let label = UILabel()
+        label.text = "부산의 새로운 매력, 이곳은 어때요?"
+        label.textColor = .black
+        label.asLineHeight(.subtitle1)
+        label.font = .fontBust(.subtitle1)
+        return label
+    }()
+    
+    lazy var collectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: SizeLiterals.Screen.screenWidth - 40, height: 172)
+        layout.minimumLineSpacing = 14
+        layout.scrollDirection = .vertical
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.showsVerticalScrollIndicator = false
+        cv.isScrollEnabled = false
+        cv.register(
+            HomePlaceCollectionViewCell.self,
+            forCellWithReuseIdentifier: HomePlaceCollectionViewCell.className
+        )
+        return cv
     }()
     
     // MARK: - Life Cycles
@@ -149,7 +184,9 @@ extension HomeView {
     }
     
     func setHierarchy() {
-        addSubviews(logoImageView, homeStatusView, missionStartButton, registerPlaceButton)
+        addSubviews(logoImageView, scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubviews(homeStatusView, missionStartButton, registerPlaceButton, placeTitleLabel, collectionView)
         homeStatusView.addSubviews(homeStatusTitle, ticketBackView, gradeBackView, correctBackView)
         ticketBackView.addSubviews(ticketImageView, ticketTitleLabel, ticketDetailLabel)
         gradeBackView.addSubviews(gradeImageView, gradeTitleLabel, gradeDetailLabel)
@@ -164,8 +201,20 @@ extension HomeView {
             $0.height.equalTo(26)
         }
         
-        homeStatusView.snp.makeConstraints {
+        scrollView.snp.makeConstraints {
             $0.top.equalTo(logoImageView.snp.bottom).offset(20)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(self.safeAreaLayoutGuide)
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalTo(scrollView)
+            $0.width.equalTo(scrollView.snp.width)
+            $0.height.equalTo(scrollView.snp.height).priority(.low)
+        }
+        
+        homeStatusView.snp.makeConstraints {
+            $0.top.equalToSuperview()
             $0.centerX.equalToSuperview()
             $0.width.equalTo(SizeLiterals.Screen.screenWidth - 40)
             $0.height.equalTo(165)
@@ -245,6 +294,19 @@ extension HomeView {
             $0.trailing.equalToSuperview().inset(20)
             $0.width.equalTo((SizeLiterals.Screen.screenWidth - 45) / 2)
             $0.height.equalTo(136)
+        }
+        
+        placeTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(missionStartButton.snp.bottom).offset(40)
+            $0.leading.equalToSuperview().inset(20)
+        }
+        
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(placeTitleLabel.snp.bottom).offset(12)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(SizeLiterals.Screen.screenWidth - 40)
+            $0.height.equalTo(584)
+            $0.bottom.equalToSuperview()
         }
     }
 }

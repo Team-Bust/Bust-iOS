@@ -1,33 +1,54 @@
 //
-//  ViewController.swift
+//  MapViewController.swift
 //  Bust-iOS
 //
-//  Created by 고아라 on 10/4/24.
+//  Created by 고아라 on 10/5/24.
 //
 
 import UIKit
-import NMapsMap
-import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+import NMapsMap
+
+final class MapViewController: UIViewController {
     
-    var locationManager = CLLocationManager()
-    var mapView: NMFMapView!
+    // MARK: - Properties
+    
+    private let mapView = MapView()
+    private lazy var map = mapView.mapView
+    private var locationManager = CLLocationManager()
+    
+    private var hasMissionStart: Bool = true // 서버에서 받을 미션시작여부
+    
+    // MARK: - Life Cycles
+    
+    override func loadView() {
+        self.view = mapView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // NMFMapView 초기화
-        mapView = NMFMapView(frame: view.frame)
-        mapView.minZoomLevel = 10.0
-        mapView.maxZoomLevel = 15.0
-        view.addSubview(mapView)
-        
-        // CLLocationManager 설정
+        setUI()
+        setDelegate()
+        setMap()
+    }
+}
+
+extension MapViewController {
+    
+    func setUI() {
+        self.navigationController?.navigationBar.isHidden = true
+        self.mapView.setUI(hasMissionStart: self.hasMissionStart)
+        self.mapView.afterBottomSheetView.bindAfterBS(data: "아 부산해커톤 힘들어여 졸린거 같아여 하지만 오늘이 마지막이니까 버텨는 볼게여?ㅋㅋ")
+    }
+    
+    func setDelegate() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
-        
+    }
+    
+    func setMap() {
         DispatchQueue.global().async {
             if CLLocationManager.locationServicesEnabled() {
                 
@@ -39,7 +60,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 } else {
                     authorization = CLLocationManager.authorizationStatus()
                 }
-                
                 print("현재 사용자의 authorization status: \(authorization)")
                 
             } else {
@@ -47,6 +67,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
     }
+}
+
+extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
@@ -54,13 +77,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
             let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: location.coordinate.latitude, lng: location.coordinate.longitude))
             cameraUpdate.animation = .easeIn
-            mapView.moveCamera(cameraUpdate)
+            map.moveCamera(cameraUpdate)
             
             let marker = NMFMarker()
-            let image = UIImage(named: "ic_mark")
+            let image = self.hasMissionStart ? UIImage(named: "graphic_pick_place") : UIImage(named: "ic_loaction")
             marker.iconImage = NMFOverlayImage(image: image ?? UIImage())
             marker.position = NMGLatLng(lat: locationManager.location?.coordinate.latitude ?? 0, lng: locationManager.location?.coordinate.longitude ?? 0)
-            marker.mapView = mapView
+            marker.mapView = map
             
             locationManager.stopUpdatingLocation()
         }

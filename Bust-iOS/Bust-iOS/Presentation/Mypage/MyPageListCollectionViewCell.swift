@@ -86,6 +86,7 @@ private extension MyPageListCollectionViewCell {
         placeAddressLabel.snp.makeConstraints {
             $0.top.equalTo(placeNameLabel.snp.bottom).offset(4)
             $0.leading.equalTo(placeNameLabel)
+            $0.trailing.equalToSuperview().inset(52)
         }
         
         placeDateLabel.snp.makeConstraints {
@@ -102,5 +103,10 @@ private extension MyPageListCollectionViewCell {
 
 extension MyPageListCollectionViewCell {
     
+    func bindCell(_ data: History) {
+        placeNameLabel.text = data.placeName
+        placeAddressLabel.text = "상세 위치 : \(data.address)"
+        placeDateLabel.text = data.timestamp
+    }
 }
 

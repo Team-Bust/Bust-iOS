@@ -175,6 +175,14 @@ extension CheckAnswerViewController {
         checkButton.addTarget(self, action: #selector(checkButtonDidTap), for: .touchUpInside)
     }
     
+    private func postHint() {
+        let dto = HintRequestDto(hint_text: checkAnswerView.hintView.hintTextField.text ?? "")
+        HintService.shared.postMapCheck(dto: dto) { response in
+            guard let data = response?.data else { return }
+            self.changeRootToHomeVC()
+        }
+    }
+    
     // MARK: - @objc Methods
     
     @objc private func keyboardWillShow(notification: NSNotification) {
@@ -213,7 +221,7 @@ extension CheckAnswerViewController {
     
     @objc
     private func checkButtonDidTap() {
-        changeRootToHomeVC()
+        postHint()
     }
     
     func changeRootToHomeVC() {

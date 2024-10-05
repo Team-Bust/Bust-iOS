@@ -35,7 +35,7 @@ final class MypageView: UIView {
     
     private let profileImageView = UIImageView(image: .imgProfile)
     
-    private let userNameLabel = {
+    let userNameLabel = {
         let label = UILabel()
         label.text = "\(UserManager.shared.getUsername) 님"
         label.textColor = .mainBlue

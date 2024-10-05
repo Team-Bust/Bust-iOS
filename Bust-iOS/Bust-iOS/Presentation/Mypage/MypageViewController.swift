@@ -18,6 +18,8 @@ final class MypageViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var myPlaceData: [History] = []
+    
     // MARK: - Initializer
     
     // MARK: - View Life Cycle
@@ -28,6 +30,7 @@ final class MypageViewController: UIViewController {
         setLayout()
         setDelegate()
         setAddTarget()
+        getMypage()
         
         self.navigationController?.navigationBar.isHidden = true
     }
@@ -65,6 +68,20 @@ extension MypageViewController {
         myPageView.settingButton.addTarget(self, action: #selector(settingButtonDidTap), for: .touchUpInside)
     }
     
+    private func getMypage() {
+        MypageService.shared.getMypage { response in
+            guard let data = response?.data else { return }
+            self.bindData(data)
+        }
+    }
+    
+    private func bindData(_ data: MypageResponseDto) {
+        myPageView.userNameLabel.text = "\(data.userName) 님"
+        self.myPlaceData = data.history
+        myPageView.myPlaceCollectionView.reloadData()
+        print(myPlaceData)
+    }
+    
     // MARK: - @objc Methods
     
     @objc
@@ -84,12 +101,12 @@ extension MypageViewController: UICollectionViewDelegate {
 extension MypageViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return myPlaceData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  MyPageListCollectionViewCell.dequeueReusableCell(collectionView: myPageView.myPlaceCollectionView, indexPath: indexPath)
-//        cell.bindRecord(recordData.diaries[indexPath.item])
+        cell.bindCell(myPlaceData[indexPath.item])
         return cell
     }
 }

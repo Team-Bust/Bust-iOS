@@ -22,6 +22,8 @@ final class MapViewController: UIViewController {
     private var inScope: Bool = false
     private var hasTicket: Bool = false
     
+    private var currentMarker: NMFMarker?
+    
     // MARK: - Life Cycles
     
     override func loadView() {
@@ -138,10 +140,10 @@ extension MapViewController {
     @objc
     func checkAnswerButtonTapped() {
         if inScope { // 정답이슈
+            self.getMapCheck()
             let nav = CheckAnswerViewController(.correctAnswer)
             nav.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(nav, animated: true)
-            // todo - 정답 확인 api
         } else { // 틀림이슈
             self.mapView.wrongAnswerToast.isHidden = false
             UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
@@ -156,10 +158,10 @@ extension MapViewController {
     @objc
     func useTicketButtonTapped() {
         if hasTicket {
+            self.getMapTicket()
             let nav = CheckAnswerViewController(.useTicket)
             nav.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(nav, animated: true)
-            // todo - 티켓 사용하기 api
         } else {
             self.mapView.noTicketToast.isHidden = false
             UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
@@ -183,13 +185,11 @@ extension MapViewController {
     func getMapGame() {
         MapService.shared.getMapGame {  response in
             guard let data = response?.data else { return }
-            print("🥹🥹🥹🥹🥹")
-            dump(data)
-            print("🥹🥹🥹🥹🥹")
             self.hasMissionStart = data.gameStarted
             self.mapView.setUI(hasMissionStart: data.gameStarted)
             self.mapView.afterBottomSheetView.bindAfterBS(data: data.place.review)
             self.hasTicket = data.tickets > 0
+            self.currentMarker?.mapView = nil
             if data.gameStarted {
                 let marker = NMFMarker()
                 marker.position = NMGLatLng(lat: Double(data.place.latitude) ?? 0.0,
@@ -197,6 +197,7 @@ extension MapViewController {
                 let image = UIImage(named: "graphic_pick_place")
                 marker.iconImage = NMFOverlayImage(image: image ?? UIImage())
                 marker.mapView = self.map
+                self.currentMarker = marker
                 self.moveToLocation(location: NMGLatLng(lat: Double(data.place.latitude) ?? 0.0,
                                                         lng: Double(data.place.longitude) ?? 0.0))
                 
@@ -217,8 +218,23 @@ extension MapViewController {
                 let image = UIImage(named: "ic_loaction")
                 marker.iconImage = NMFOverlayImage(image: image ?? UIImage())
                 marker.mapView = self.map
+                self.currentMarker = marker
                 self.moveToUserLocation()
             }
+        }
+    }
+    
+    func getMapCheck() {
+        MapService.shared.getMapCheck { response in
+            guard let data = response?.data else { return }
+            dump(data)
+        }
+    }
+    
+    func getMapTicket() {
+        MapService.shared.getMapTicket { response in
+            guard let data = response?.data else { return }
+            dump(data)
         }
     }
 }

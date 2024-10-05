@@ -58,7 +58,6 @@ extension LoginViewController {
             if error != nil {
                 self.showKakaoLoginFailMessage()
             } else if let socialToken = oauthToken?.accessToken {
-                print("💭💭💭💭")
                 UserApi.shared.me { (user, error) in
                     if let error = error {
                         print("사용자 정보를 가져오는 데 실패했습니다: \(error.localizedDescription)")
@@ -73,7 +72,6 @@ extension LoginViewController {
                     }
                 }
                 UserManager.shared.updateSocialToken(socialToken)
-                print("💭💭💭💭")
                 print(socialToken)
                 self.postLogin()
             }
@@ -86,7 +84,6 @@ extension LoginViewController {
                 self.showKakaoLoginFailMessage()
             } else if let socialToken = oauthToken?.accessToken {
                 UserManager.shared.updateSocialToken(socialToken)
-                print("💭💭💭💭")
                 UserApi.shared.me { (user, error) in
                     if let error = error {
                         print("사용자 정보를 가져오는 데 실패했습니다: \(error.localizedDescription)")
@@ -100,7 +97,6 @@ extension LoginViewController {
                         }
                     }
                 }
-                print("💭💭💭💭")
                 print(socialToken)
                 self.postLogin()
             }

@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import Kingfisher
 
 final class HomePlaceCollectionViewCell: UICollectionViewCell, UICollectionViewRegisterable {
     
@@ -93,5 +94,6 @@ extension HomePlaceCollectionViewCell {
     func bindHomePlace(model: RecommendedPlace) {
         placeTitleLabel.text = model.title
         placeAddressLabel.text = model.address
+        placeImageView.kf.setImage(with: URL(string: model.image))
     }
 }

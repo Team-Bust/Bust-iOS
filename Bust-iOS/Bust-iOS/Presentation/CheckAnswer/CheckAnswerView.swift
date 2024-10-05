@@ -77,7 +77,6 @@ final class CheckAnswerView: UIScrollView {
                 $0.top.equalToSuperview()
                 $0.leading.trailing.equalToSuperview()
                 $0.width.equalTo(self.snp.width)
-                $0.bottom.equalTo(descriptionLabel.snp.bottom).offset(40)
             }
         }
     }
@@ -98,53 +97,49 @@ extension CheckAnswerView {
     // MARK: - Layout Helper
     
     private func setLayout() {
-        
+
         self.addSubviews(contentView)
-        contentView.addSubviews(checkLabel, answerImage,
-                                locationNameLabel, locationDetailLabel,
-                           descriptionLabel, hintView)
-        
+        contentView.addSubviews(checkLabel, answerImage, locationNameLabel, locationDetailLabel, descriptionLabel, hintView)
+
         checkLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(8)
             $0.leading.equalToSuperview().inset(20)
         }
-        
+
         answerImage.snp.makeConstraints {
             $0.top.equalTo(checkLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(216)
         }
-        
+
         locationNameLabel.snp.makeConstraints {
             $0.top.equalTo(answerImage.snp.bottom).offset(20)
             $0.leading.equalTo(checkLabel)
         }
-        
+
         locationDetailLabel.snp.makeConstraints {
             $0.top.equalTo(locationNameLabel.snp.bottom).offset(8)
             $0.leading.equalTo(checkLabel)
         }
-        
+
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(locationDetailLabel.snp.bottom).offset(16)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.width.equalTo(335)
-            $0.height.equalTo(setDescriptionHeight(descriptionLabel.text ?? ""))
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
-        
+
         hintView.snp.makeConstraints {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(30)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(150)
-        }
-        
-        contentView.snp.makeConstraints {
-            $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(170)
+        }
+
+        contentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()  // 모든 가장자리를 슈퍼뷰에 맞추도록 수정
             $0.width.equalTo(self.snp.width)
             $0.bottom.equalTo(hintView.snp.bottom).offset(40)
         }
     }
+
     
     // MARK: - Methods
      

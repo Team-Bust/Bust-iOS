@@ -19,12 +19,25 @@ final class MapView: UIView {
         return map
     }()
     
+    let beforeBottomSheetView = {
+        let view = BeforBottomSheetView()
+        view.bottomSheetColor = .white
+        view.barViewColor = .gray200
+        return view
+    }()
+    
+    let afterBottomSheetView = {
+        let view = AfterBottomSheetView()
+        view.bottomSheetColor = .white
+        view.barViewColor = .gray200
+        return view
+    }()
+    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setUI()
         setHierarchy()
         setLayout()
     }
@@ -37,8 +50,21 @@ final class MapView: UIView {
 
 extension MapView {
     
-    func setUI() {
+    func setUI(hasMissionStart: Bool) {
+        beforeBottomSheetView.removeFromSuperview()
+        afterBottomSheetView.removeFromSuperview()
         
+        if hasMissionStart {
+            addSubview(afterBottomSheetView)
+            afterBottomSheetView.snp.makeConstraints {
+                $0.edges.equalToSuperview()
+            }
+        } else {
+            addSubview(beforeBottomSheetView)
+            beforeBottomSheetView.snp.makeConstraints {
+                $0.edges.equalToSuperview()
+            }
+        }
     }
     
     func setHierarchy() {

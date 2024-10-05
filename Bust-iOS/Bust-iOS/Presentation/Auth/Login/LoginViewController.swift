@@ -63,8 +63,12 @@ extension LoginViewController {
                     if let error = error {
                         print("사용자 정보를 가져오는 데 실패했습니다: \(error.localizedDescription)")
                     } else {
+                        if let profile = user?.kakaoAccount?.profile?.profileImageUrl {
+                            print(profile)
+                        }
                         if let nickname = user?.kakaoAccount?.profile?.nickname {
                             print("사용자 닉네임: \(nickname)")
+                            UserManager.shared.updateUsername(nickname)
                         }
                     }
                 }
@@ -87,8 +91,12 @@ extension LoginViewController {
                     if let error = error {
                         print("사용자 정보를 가져오는 데 실패했습니다: \(error.localizedDescription)")
                     } else {
+                        if let profile = user?.kakaoAccount?.profile?.profileImageUrl {
+                            print(profile)
+                        }
                         if let nickname = user?.kakaoAccount?.profile?.nickname {
                             print("사용자 닉네임: \(nickname)")
+                            UserManager.shared.updateUsername(nickname)
                         }
                     }
                 }

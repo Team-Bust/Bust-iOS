@@ -214,7 +214,7 @@ extension AddLocationViewController {
     
     @objc
     private func backButtonTap() {
-        print("backButtonTap")
+        navigationController?.popViewController(animated: true)
     }
 }
 

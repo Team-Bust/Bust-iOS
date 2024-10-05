@@ -20,6 +20,6 @@ enum URLConstant {
     
     // map
     
-    static let mapURL = "/map/random-place"
+    static let mapGameURL = "/map/game"
     
 }

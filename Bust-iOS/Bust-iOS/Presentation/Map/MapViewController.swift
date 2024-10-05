@@ -19,6 +19,7 @@ final class MapViewController: UIViewController {
     
     private var hasMissionStart: Bool = false
     private var inScope: Bool = false
+    private var hasTicket: Bool = false
     
     // MARK: - Life Cycles
     
@@ -29,7 +30,7 @@ final class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        getHomeGame()
+        getMapGame()
     }
     
     override func viewDidLoad() {
@@ -136,9 +137,19 @@ extension MapViewController {
     
     @objc
     func useTicketButtonTapped() {
-        print("useticket")
+        if hasTicket {
+            let nav = CheckAnswerViewController()
+            self.navigationController?.pushViewController(nav, animated: true)
+        } else {
+            self.mapView.noTicketToast.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
+                self.mapView.noTicketToast.alpha = 0.0
+            }, completion: {_ in
+                self.mapView.noTicketToast.isHidden = true
+                self.mapView.noTicketToast.alpha = 1.0
+            })
+        }
     }
-    
 }
 
 extension CLLocationCoordinate2D {
@@ -149,11 +160,12 @@ extension CLLocationCoordinate2D {
 
 extension MapViewController {
     
-    func getHomeGame() {
-        HomeService.shared.getHomeGame {  response in
+    func getMapGame() {
+        MapService.shared.getMapGame {  response in
             guard let data = response?.data else { return }
             self.hasMissionStart = data.gameStarted
             self.mapView.setUI(hasMissionStart: data.gameStarted)
+            self.hasTicket = data.tickets > 0
             if data.gameStarted {
                 let marker = NMFMarker()
                 marker.position = NMGLatLng(lat: Double(data.place.위도) ?? 0.0,

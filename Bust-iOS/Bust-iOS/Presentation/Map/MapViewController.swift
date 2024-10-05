@@ -214,7 +214,7 @@ extension MapViewController {
             } else {
                 let marker = NMFMarker()
                 marker.position = self.getUserLocation()
-                let image = UIImage(named: "ic_location")
+                let image = UIImage(named: "ic_loaction")
                 marker.iconImage = NMFOverlayImage(image: image ?? UIImage())
                 marker.mapView = self.map
                 self.moveToUserLocation()

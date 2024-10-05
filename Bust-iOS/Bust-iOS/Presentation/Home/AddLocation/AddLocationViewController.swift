@@ -209,7 +209,7 @@ extension AddLocationViewController {
     
     @objc
     private func addButtonTap() {
-        print("addButtonTap")
+        navigationController?.popViewController(animated: true)
     }
     
     @objc

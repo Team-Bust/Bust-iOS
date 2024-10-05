@@ -234,7 +234,7 @@ final class AfterBottomSheetView: PassThroughView {
         reviewContentLabel.text = "\(UserManager.shared.getUsername) \(data)"
         reviewContentLabel.asFontColor(targetString: "\(UserManager.shared.getUsername)",
                                        font: .fontBust(.caption1),
-                                       color: .gray500)
+                                       color: .black)
         reviewContentLabel.asLineHeight(.caption11)
     }
 }

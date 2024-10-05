@@ -8,6 +8,7 @@
 import UIKit
 
 import NMapsMap
+import CoreLocation
 
 final class MapViewController: UIViewController {
     
@@ -40,13 +41,28 @@ final class MapViewController: UIViewController {
         setDelegate()
         setAddTarget()
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name("CheckAnswerBack"),
+                                                  object: nil)
+    }
 }
 
 extension MapViewController {
     
     func setUI() {
         self.navigationController?.navigationBar.isHidden = true
-        self.mapView.afterBottomSheetView.bindAfterBS(data: "아 부산해커톤 힘들어여 졸린거 같아여 하지만 오늘이 마지막이니까 버텨는 볼게여?ㅋㅋ")
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(fromCheckAnswer),
+                                               name: NSNotification.Name("CheckAnswerBack"),
+                                               object: nil)
+    }
+    
+    @objc
+    func fromCheckAnswer() {
+        getMapGame()
     }
     
     func setDelegate() {
@@ -122,8 +138,10 @@ extension MapViewController {
     @objc
     func checkAnswerButtonTapped() {
         if inScope { // 정답이슈
-            let nav = CheckAnswerViewController()
+            let nav = CheckAnswerViewController(.correctAnswer)
+            nav.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(nav, animated: true)
+            // todo - 정답 확인 api
         } else { // 틀림이슈
             self.mapView.wrongAnswerToast.isHidden = false
             UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
@@ -138,8 +156,10 @@ extension MapViewController {
     @objc
     func useTicketButtonTapped() {
         if hasTicket {
-            let nav = CheckAnswerViewController()
+            let nav = CheckAnswerViewController(.useTicket)
+            nav.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(nav, animated: true)
+            // todo - 티켓 사용하기 api
         } else {
             self.mapView.noTicketToast.isHidden = false
             UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
@@ -163,21 +183,25 @@ extension MapViewController {
     func getMapGame() {
         MapService.shared.getMapGame {  response in
             guard let data = response?.data else { return }
+            print("🥹🥹🥹🥹🥹")
+            dump(data)
+            print("🥹🥹🥹🥹🥹")
             self.hasMissionStart = data.gameStarted
             self.mapView.setUI(hasMissionStart: data.gameStarted)
+            self.mapView.afterBottomSheetView.bindAfterBS(data: data.place.review)
             self.hasTicket = data.tickets > 0
             if data.gameStarted {
                 let marker = NMFMarker()
-                marker.position = NMGLatLng(lat: Double(data.place.위도) ?? 0.0,
-                                            lng: Double(data.place.경도) ?? 0.0)
+                marker.position = NMGLatLng(lat: Double(data.place.latitude) ?? 0.0,
+                                            lng: Double(data.place.longitude) ?? 0.0)
                 let image = UIImage(named: "graphic_pick_place")
                 marker.iconImage = NMFOverlayImage(image: image ?? UIImage())
                 marker.mapView = self.map
-                self.moveToLocation(location: NMGLatLng(lat: Double(data.place.위도) ?? 0.0,
-                                                        lng: Double(data.place.경도) ?? 0.0))
+                self.moveToLocation(location: NMGLatLng(lat: Double(data.place.latitude) ?? 0.0,
+                                                        lng: Double(data.place.longitude) ?? 0.0))
                 
-                if self.isWithinRange(lat1: Double(data.place.위도) ?? 0.0,
-                                      lon1: Double(data.place.경도) ?? 0.0,
+                if self.isWithinRange(lat1: Double(data.place.latitude) ?? 0.0,
+                                      lon1: Double(data.place.longitude) ?? 0.0,
                                       lat2: self.getUserLocation().lat,
                                       lon2: self.getUserLocation().lng,
                                       range: 0.3) {
@@ -189,8 +213,7 @@ extension MapViewController {
                 }
             } else {
                 let marker = NMFMarker()
-                marker.position = NMGLatLng(lat: Double(data.place.위도) ?? 0.0,
-                                            lng: Double(data.place.경도) ?? 0.0)
+                marker.position = self.getUserLocation()
                 let image = UIImage(named: "ic_location")
                 marker.iconImage = NMFOverlayImage(image: image ?? UIImage())
                 marker.mapView = self.map

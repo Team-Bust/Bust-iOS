@@ -6,7 +6,7 @@
 //
 
 struct MapGameResponseDto: Codable {
-    let place: MapGamePlace
+    let place: MapPlace
     let gameStarted: Bool
     let tickets: Int
 
@@ -18,6 +18,6 @@ struct MapGameResponseDto: Codable {
 }
 
 // MARK: - Place
-struct MapGamePlace: Codable {
-    let 위도, 경도: String
+struct MapPlace: Codable {
+    let latitude, longitude, review: String
 }

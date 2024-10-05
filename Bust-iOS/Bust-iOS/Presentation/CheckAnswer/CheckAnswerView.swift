@@ -134,11 +134,11 @@ extension CheckAnswerView {
             $0.top.equalTo(locationDetailLabel.snp.bottom).offset(16)
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.width.equalTo(335)
-            $0.height.equalTo(130)
+            $0.height.equalTo(setDescriptionHeight(descriptionLabel.text ?? ""))
         }
         
         hintView.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel.snp.bottom).offset(40)
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(30)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(150)
         }
@@ -156,6 +156,12 @@ extension CheckAnswerView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.contentSize = contentView.frame.size
+    }
+    
+    private func setDescriptionHeight(_ text: String) -> Int {
+        let string = text
+        let viewSize = Int(string.size(withAttributes: [NSAttributedString.Key.font: UIFont.fontBust(.body11)]).height + 5)
+        return viewSize
     }
     
     // MARK: - @objc Methods

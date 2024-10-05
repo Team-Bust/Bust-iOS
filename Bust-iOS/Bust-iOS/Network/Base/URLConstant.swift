@@ -31,4 +31,5 @@ enum URLConstant {
     // mypage
     
     static let mypageInfo = "/mypage/info"
+    static let mypageDetail = "/mypage/detail/{historyId}"
 }

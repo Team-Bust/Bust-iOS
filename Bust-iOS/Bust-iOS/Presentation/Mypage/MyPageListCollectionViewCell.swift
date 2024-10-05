@@ -105,7 +105,7 @@ private extension MyPageListCollectionViewCell {
 
 extension MyPageListCollectionViewCell {
     
-    func bindCell(_ data: History) {
+    func bindCell(_ data: MypageHistory) {
         placeNameLabel.text = data.placeName
         placeAddressLabel.text = "상세 위치 : \(data.address)"
         placeDateLabel.text = data.timestamp

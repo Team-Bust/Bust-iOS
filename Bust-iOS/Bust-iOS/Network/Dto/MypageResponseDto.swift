@@ -5,10 +5,9 @@
 //  Created by KJ on 10/6/24.
 //
 
-// MARK: - DataClass
 struct MypageResponseDto: Codable {
     let userName: String
-    let history: [History]
+    let history: [MypageHistory]
 
     enum CodingKeys: String, CodingKey {
         case userName = "user_name"
@@ -17,12 +16,16 @@ struct MypageResponseDto: Codable {
 }
 
 // MARK: - History
-struct History: Codable {
-    let image, placeName, address, timestamp, hint: String
+struct MypageHistory: Codable {
+    let id: Int
+    let image: String
+    let placeName, address, timestamp: String
     let success: Bool
+    let hint: String
 
     enum CodingKeys: String, CodingKey {
+        case id, image
         case placeName = "place_name"
-        case image, address, timestamp, success, hint
+        case address, timestamp, success, hint
     }
 }

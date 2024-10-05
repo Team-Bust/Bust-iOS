@@ -18,7 +18,7 @@ final class MapService {
     
     public private(set) var mapGameData: GeneralResponse<MapGameResponseDto>?
     public private(set) var mapCheckData: GeneralResponse<MapCheckResponseDto>?
-    public private(set) var mapTicketData: GeneralResponse<EmptyDto>?
+    public private(set) var mapTicketData: GeneralResponse<MapCheckResponseDto>?
     
     // MARK: - GET
     
@@ -60,13 +60,13 @@ final class MapService {
         }
     }
     
-    func getMapTicket (completion: @escaping(GeneralResponse<EmptyDto>?) -> Void) {
+    func getMapTicket (completion: @escaping(GeneralResponse<MapCheckResponseDto>?) -> Void) {
         mapProvider.request(.getMapTicket) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):
                 do {
-                    self.mapTicketData = try response.map(GeneralResponse<EmptyDto>.self)
+                    self.mapTicketData = try response.map(GeneralResponse<MapCheckResponseDto>.self)
                     guard let mapTicketData = self.mapTicketData else { return }
                     completion(mapTicketData)
                 } catch let err {

@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import Kingfisher
 
 final class MyPlaceDetailView: UIView {
     
@@ -173,4 +174,20 @@ extension MyPlaceDetailView {
     }
     
     // MARK: - @objc Methods
+}
+
+extension MyPlaceDetailView {
+    
+    func bindMyplaceDetail(model: MypageDetailResponseDto) {
+        locationNameLabel.text = model.history.placeName
+        locationDetailLabel.text = "상세 위치 : \(model.history.address)"
+        locationDetailLabel.asLineHeight(.body21)
+        descriptionLabel.text = model.history.description
+        if model.history.image == "" {
+            placeImageView.image = UIImage(resource: .imgLocationEmpty)
+        } else {
+            placeImageView.kf.setImage(with: URL(string: model.history.image))
+        }
+        myHintTextLabel.text = model.history.hint
+    }
 }

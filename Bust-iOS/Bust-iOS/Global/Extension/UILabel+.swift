@@ -29,12 +29,15 @@ extension UILabel {
         }
     }
     
-    func asFontColor(targetString: String, font: UIFont?, color: UIColor?) {
-        let fullText = text ?? ""
-        let attributedString = NSMutableAttributedString(string: fullText)
-        
-        let range = (fullText as NSString).range(of: targetString)
-        attributedString.addAttributes([.font: font as Any, .foregroundColor: color as Any], range: range)
-        attributedText = attributedString
+    func partFontChange(targetString: String, font: UIFont, textColor: UIColor) {
+        guard let existingText = self.text else {
+            return
+        }
+        let existingAttributes = self.attributedText?.attributes(at: 0, effectiveRange: nil) ?? [:]
+        let attributedStr = NSMutableAttributedString(string: existingText, attributes: existingAttributes)
+        let range = (existingText as NSString).range(of: targetString)
+        attributedStr.addAttribute(NSAttributedString.Key.font, value: font, range: range)
+        attributedStr.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor, range: range)
+        self.attributedText = attributedStr
     }
 }

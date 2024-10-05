@@ -19,5 +19,11 @@ struct MapGameResponseDto: Codable {
 
 // MARK: - Place
 struct MapPlace: Codable {
-    let latitude, longitude, review: String
+    let latitude, longitude: String
+    let review: [Review]
+}
+
+// MARK: - Review
+struct Review: Codable {
+    let user, content: String
 }

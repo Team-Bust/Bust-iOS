@@ -156,9 +156,6 @@ extension MapViewController {
     func useTicketButtonTapped() {
         if hasTicket {
             self.getMapTicket()
-            let nav = CheckAnswerViewController(.useTicket)
-            nav.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(nav, animated: true)
         } else {
             self.mapView.noTicketToast.isHidden = false
             UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
@@ -184,7 +181,9 @@ extension MapViewController {
             guard let data = response?.data else { return }
             self.hasMissionStart = data.gameStarted
             self.mapView.setUI(hasMissionStart: data.gameStarted)
-            self.mapView.afterBottomSheetView.bindAfterBS(data: data.place.review)
+            if data.place.review.count > 0 {
+                self.mapView.afterBottomSheetView.bindAfterBS(data: data.place.review[0])
+            }
             self.hasTicket = data.tickets > 0
             self.currentMarker?.mapView = nil
             if data.gameStarted {
@@ -234,7 +233,10 @@ extension MapViewController {
     func getMapTicket() {
         MapService.shared.getMapTicket { response in
             guard let data = response?.data else { return }
-            dump(data)
+            let nav = CheckAnswerViewController(.useTicket)
+            nav.hidesBottomBarWhenPushed = true
+            nav.correctAnswerData = data
+            self.navigationController?.pushViewController(nav, animated: true)
         }
     }
 }

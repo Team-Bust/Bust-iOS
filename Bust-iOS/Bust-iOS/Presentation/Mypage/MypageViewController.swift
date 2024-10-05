@@ -18,7 +18,7 @@ final class MypageViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var myPlaceData: [History] = []
+    private var myPlaceData: [MypageHistory] = []
     
     // MARK: - Initializer
     
@@ -76,7 +76,7 @@ extension MypageViewController {
     }
     
     private func bindData(_ data: MypageResponseDto) {
-        myPageView.userNameLabel.text = "\(data.userName) 님"
+        myPageView.userNameLabel.text = "\(UserManager.shared.getUsername) 님"
         self.myPlaceData = data.history
         myPageView.myPlaceCollectionView.reloadData()
         print(myPlaceData)
@@ -93,8 +93,9 @@ extension MypageViewController {
 extension MypageViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let recordDetailData = recordData.diaries[indexPath.item]
-        self.navigationController?.pushViewController(MyPlaceDetailViewController(), animated: true)
+        let nav = MyPlaceDetailViewController()
+        nav.historyId = myPlaceData[indexPath.item].id
+        self.navigationController?.pushViewController(nav, animated: true)
     }
 }
 

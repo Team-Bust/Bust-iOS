@@ -86,7 +86,7 @@ final class AfterBottomSheetView: PassThroughView {
         return view
     }()
     
-    private let reviewProfileImageview = UIImageView()
+    private let reviewProfileImageview = UIImageView(image: .graphicProfile)
     
     private let reviewContentLabel = {
         let label = UILabel()
@@ -230,11 +230,8 @@ final class AfterBottomSheetView: PassThroughView {
         }
     }
     
-    func bindAfterBS(data: String) {
-        reviewContentLabel.text = "\(UserManager.shared.getUsername) \(data)"
-        reviewContentLabel.asFontColor(targetString: "\(UserManager.shared.getUsername)",
-                                       font: .fontBust(.caption1),
-                                       color: .black)
+    func bindAfterBS(data: Review) {
+        reviewContentLabel.text = "\(data.user) - \(data.content)"
         reviewContentLabel.asLineHeight(.caption11)
     }
 }

@@ -12,6 +12,7 @@ import Moya
 enum MypageTarget {
     
     case getMypage
+    case getMypageDetail(id: Int)
 }
 
 extension MypageTarget: BaseTargetType {
@@ -20,21 +21,19 @@ extension MypageTarget: BaseTargetType {
         switch self{
         case .getMypage:
             return URLConstant.mypageInfo
+        case .getMypageDetail(let id):
+            let path = URLConstant.mypageDetail
+                .replacingOccurrences(of: "{historyId}", with: String(id))
+            return path
         }
     }
     
     var method: Moya.Method {
-        switch self{
-        case .getMypage:
-            return .get
-        }
+        return .get
     }
     
     var task: Moya.Task {
-        switch self{
-        case .getMypage:
-            return .requestPlain
-        }
+        return .requestPlain
     }
     
     var headers: [String : String]? {

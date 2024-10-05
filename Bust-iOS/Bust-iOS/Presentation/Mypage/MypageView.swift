@@ -33,7 +33,7 @@ final class MypageView: UIView {
         return button
     }()
     
-    private let profileImageView = UIImageView(image: .imgProfile)
+    private let profileImageView = UIImageView(image: .graphicProfileMypage)
     
     let userNameLabel = {
         let label = UILabel()

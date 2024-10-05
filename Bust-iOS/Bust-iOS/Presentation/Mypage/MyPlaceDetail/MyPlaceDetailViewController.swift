@@ -15,6 +15,7 @@ final class MyPlaceDetailViewController: UIViewController {
     // MARK: - UI Components
     
     private let myPlaceDetailView = MyPlaceDetailView()
+    var historyId: Int = 0
     
     // MARK: - Properties
     
@@ -27,6 +28,7 @@ final class MyPlaceDetailViewController: UIViewController {
         setUI()
         setLayout()
         setAddTarget()
+        getMypageDetail(id: self.historyId)
         
         navigationController?.navigationBar.isHidden = true
     }
@@ -66,5 +68,15 @@ extension MyPlaceDetailViewController {
     @objc
     private func backButtonDidTap() {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+extension MyPlaceDetailViewController {
+    
+    func getMypageDetail(id: Int) {
+        MypageService.shared.getMypageDetail(id: id) { response in
+            guard let data = response?.data else { return }
+            self.myPlaceDetailView.bindMyplaceDetail(model: data)
+        }
     }
 }

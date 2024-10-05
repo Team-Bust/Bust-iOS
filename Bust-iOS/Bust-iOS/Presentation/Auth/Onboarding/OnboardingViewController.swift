@@ -24,6 +24,7 @@ final class OnboardingViewController: UIViewController {
         
         setUI()
         setDelegate()
+        setAddTarget()
     }
 }
 
@@ -45,8 +46,8 @@ extension OnboardingViewController {
     @objc
     func nextButtonTapped() {
 //        UserManager.shared.updateOnboarding()
-//        let nav = TabBarController()
-//        self.navigationController?.pushViewController(nav, animated: true)
+        let nav = TabBarController()
+        self.navigationController?.pushViewController(nav, animated: true)
     }
 }
 

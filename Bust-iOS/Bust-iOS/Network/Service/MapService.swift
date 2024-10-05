@@ -17,6 +17,7 @@ final class MapService {
     private init() {}
     
     public private(set) var mapGameData: GeneralResponse<MapGameResponseDto>?
+    public private(set) var mapCheckData: GeneralResponse<EmptyDto>?
     
     // MARK: - GET
     
@@ -29,6 +30,28 @@ final class MapService {
                     self.mapGameData = try response.map(GeneralResponse<MapGameResponseDto>.self)
                     guard let mapGameData = self.mapGameData else { return }
                     completion(mapGameData)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
+            }
+        }
+    }
+    
+    // MARK: - POST
+    
+    func postMapCheck(dto: MapCheckRequestDto,
+                      completion: @escaping(GeneralResponse<EmptyDto>?) -> Void) {
+        mapProvider.request(.postMapCheck(dto: dto)) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let response):
+                do {
+                    self.mapCheckData = try response.map(GeneralResponse<EmptyDto>.self)
+                    guard let mapCheckData = self.mapCheckData else { return }
+                    completion(mapCheckData)
                 } catch let err {
                     print(err.localizedDescription, 500)
                 }

@@ -38,7 +38,7 @@ final class CheckAnswerViewController: UIViewController {
     lazy var checkAnswerView = {
         let view = CheckAnswerView(self.viewType)
         view.isScrollEnabled = true
-        view.showsVerticalScrollIndicator = true  // 세로 스크롤 표시
+        view.showsVerticalScrollIndicator = false  
         view.showsHorizontalScrollIndicator = false
         return view
     }()
@@ -119,14 +119,13 @@ extension CheckAnswerViewController {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.width.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(124)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(116)
         }
             
         checkButton.snp.makeConstraints {
             $0.bottom.equalTo(self.view.keyboardLayoutGuide.snp.top).inset(-36)
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(48)
-            
         }
     }
     

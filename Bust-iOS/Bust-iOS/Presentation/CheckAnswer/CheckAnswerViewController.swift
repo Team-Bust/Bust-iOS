@@ -10,7 +10,16 @@ import UIKit
 import Moya
 import SnapKit
 
+enum AnswerViewType {
+    case correctAnswer
+    case useTicket
+}
+
 final class CheckAnswerViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    var viewType: AnswerViewType
     
     // MARK: - UI Components
     
@@ -26,10 +35,10 @@ final class CheckAnswerViewController: UIViewController {
         return button
     }()
 
-    private let checkAnswerView = {
-        let view = CheckAnswerView(.correctAnswer)
+    lazy var checkAnswerView = {
+        let view = CheckAnswerView(self.viewType)
         view.isScrollEnabled = true
-        view.showsVerticalScrollIndicator = true  // 세로 스크롤 표시
+        view.showsVerticalScrollIndicator = false  
         view.showsHorizontalScrollIndicator = false
         return view
     }()
@@ -41,9 +50,16 @@ final class CheckAnswerViewController: UIViewController {
         return button
     }()
     
-    // MARK: - Properties
-    
     // MARK: - Initializer
+    
+    init(_ type: AnswerViewType) {
+        self.viewType = type
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Life Cycle
     
@@ -103,14 +119,13 @@ extension CheckAnswerViewController {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.width.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(124)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(116)
         }
             
         checkButton.snp.makeConstraints {
             $0.bottom.equalTo(self.view.keyboardLayoutGuide.snp.top).inset(-36)
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(48)
-            
         }
     }
     

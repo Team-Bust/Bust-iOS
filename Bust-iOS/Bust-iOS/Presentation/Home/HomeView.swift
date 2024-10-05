@@ -314,5 +314,8 @@ extension HomeView {
         ticketDetailLabel.text = "\(dto.tickets)장"
         gradeDetailLabel.text = dto.grade
         correctDetailLabel.text = "\(dto.gameCount)개"
+        [ticketDetailLabel, gradeDetailLabel, correctDetailLabel].forEach {
+            $0.asLineHeight(.body2)
+        }
     }
 }

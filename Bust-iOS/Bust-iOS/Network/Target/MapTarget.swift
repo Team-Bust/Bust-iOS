@@ -12,7 +12,8 @@ import Moya
 enum MapTarget {
     
     case getMapGame
-    case postMapCheck(dto: MapCheckRequestDto)
+    case getMapCheck
+    case getMapTicket
 }
 
 extension MapTarget: BaseTargetType {
@@ -21,27 +22,19 @@ extension MapTarget: BaseTargetType {
         switch self{
         case .getMapGame:
             return URLConstant.mapGameURL
-        case .postMapCheck:
+        case .getMapCheck:
             return URLConstant.mapCheckURL
+        case .getMapTicket:
+            return URLConstant.mapTicketURL
         }
     }
     
     var method: Moya.Method {
-        switch self{
-        case .getMapGame:
-            return .get
-        case .postMapCheck:
-            return .post
-        }
+        return .get
     }
     
     var task: Moya.Task {
-        switch self{
-        case .getMapGame:
-            return .requestPlain
-        case .postMapCheck(let dto):
-            return .requestJSONEncodable(dto)
-        }
+        return .requestPlain
     }
     
     var headers: [String : String]? {

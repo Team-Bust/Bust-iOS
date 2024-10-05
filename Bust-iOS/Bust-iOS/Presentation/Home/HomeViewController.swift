@@ -52,7 +52,10 @@ extension HomeViewController {
         switch sender {
         case homeView.missionStartButton:
             self.getHomeGame()
-            self.tabBarController?.selectedIndex = 1
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                MapViewController().getMapGame()
+                self.tabBarController?.selectedIndex = 1
+            }
         case homeView.registerPlaceButton:
             let nav = AddLocationViewController()
             nav.hidesBottomBarWhenPushed = true

@@ -1,5 +1,5 @@
 //
-//  HomeResponseDto.swift
+//  HomeInfoResponseDto.swift
 //  Bust-iOS
 //
 //  Created by 고아라 on 10/5/24.
@@ -21,13 +21,6 @@ struct HomeInfoResponseDto: Codable {
 
 // MARK: - RecommendedPlace
 struct RecommendedPlace: Codable {
-    let id: Int
+    let image: String
     let title, address: String
-    let latitude, longitude: Double
-    let detailsLink: String
-
-    enum CodingKeys: String, CodingKey {
-        case id, title, address, latitude, longitude
-        case detailsLink = "details_link"
-    }
 }

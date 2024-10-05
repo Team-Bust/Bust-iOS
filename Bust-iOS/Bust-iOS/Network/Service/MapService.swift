@@ -17,7 +17,8 @@ final class MapService {
     private init() {}
     
     public private(set) var mapGameData: GeneralResponse<MapGameResponseDto>?
-    public private(set) var mapCheckData: GeneralResponse<EmptyDto>?
+    public private(set) var mapCheckData: GeneralResponse<MapCheckResponseDto>?
+    public private(set) var mapTicketData: GeneralResponse<EmptyDto>?
     
     // MARK: - GET
     
@@ -40,18 +41,34 @@ final class MapService {
         }
     }
     
-    // MARK: - POST
-    
-    func postMapCheck(dto: MapCheckRequestDto,
-                      completion: @escaping(GeneralResponse<EmptyDto>?) -> Void) {
-        mapProvider.request(.postMapCheck(dto: dto)) { [weak self] result in
+    func getMapCheck (completion: @escaping(GeneralResponse<MapCheckResponseDto>?) -> Void) {
+        mapProvider.request(.getMapCheck) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):
                 do {
-                    self.mapCheckData = try response.map(GeneralResponse<EmptyDto>.self)
+                    self.mapCheckData = try response.map(GeneralResponse<MapCheckResponseDto>.self)
                     guard let mapCheckData = self.mapCheckData else { return }
                     completion(mapCheckData)
+                } catch let err {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil)
+            }
+        }
+    }
+    
+    func getMapTicket (completion: @escaping(GeneralResponse<EmptyDto>?) -> Void) {
+        mapProvider.request(.getMapTicket) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let response):
+                do {
+                    self.mapTicketData = try response.map(GeneralResponse<EmptyDto>.self)
+                    guard let mapTicketData = self.mapTicketData else { return }
+                    completion(mapTicketData)
                 } catch let err {
                     print(err.localizedDescription, 500)
                 }

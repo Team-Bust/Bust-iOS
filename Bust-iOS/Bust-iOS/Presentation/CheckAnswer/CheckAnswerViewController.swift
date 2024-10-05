@@ -206,12 +206,25 @@ extension CheckAnswerViewController {
     
     @objc
     private func backButtonDidTap() {
+        NotificationCenter.default.post(name: NSNotification.Name("CheckAnswerBack"),
+                                        object: nil)
         navigationController?.popViewController(animated: true)
     }
     
     @objc
     private func checkButtonDidTap() {
-        print("checkButtonDidTap")
+        changeRootToHomeVC()
+    }
+    
+    func changeRootToHomeVC() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            if let window = windowScene.windows.first {
+                let tabVC = TabBarController()
+                tabVC.selectedIndex = 0
+                let navigationController = UINavigationController(rootViewController: tabVC)
+                window.rootViewController = navigationController
+            }
+        }
     }
 }
 

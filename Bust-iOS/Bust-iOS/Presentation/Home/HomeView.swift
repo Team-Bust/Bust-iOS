@@ -309,4 +309,10 @@ extension HomeView {
             $0.bottom.equalToSuperview()
         }
     }
+    
+    func bindHomeView(dto: HomeInfoResponseDto) {
+        ticketDetailLabel.text = "\(dto.tickets)장"
+        gradeDetailLabel.text = dto.grade
+        correctDetailLabel.text = "\(dto.gameCount)개"
+    }
 }

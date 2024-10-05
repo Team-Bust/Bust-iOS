@@ -87,3 +87,11 @@ private extension HomePlaceCollectionViewCell {
         }
     }
 }
+
+extension HomePlaceCollectionViewCell {
+    
+    func bindHomePlace(model: RecommendedPlace) {
+        placeTitleLabel.text = model.title
+        placeAddressLabel.text = model.address
+    }
+}

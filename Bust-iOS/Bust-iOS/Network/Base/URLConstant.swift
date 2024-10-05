@@ -13,4 +13,13 @@ enum URLConstant {
     
     static let baseURL = Config.baseURL
     
+    // home
+    
+    static let homeInfoURL = "/home/info"
+    static let homeGameURL = "/home/game"
+    
+    // map
+    
+    static let mapURL = "/map/random-place"
+    
 }

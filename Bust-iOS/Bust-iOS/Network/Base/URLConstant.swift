@@ -26,4 +26,8 @@ enum URLConstant {
     // hint
     
     static let mapComplete = "/map/complete"
+    
+    // mypage
+    
+    static let mypageInfo = "/mypage/info"
 }

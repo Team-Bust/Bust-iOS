@@ -105,7 +105,7 @@ extension HomeViewController {
     
     func getHomeGame() {
         HomeService.shared.getHomeGame {  response in
-            guard let data = response?.data else { return }
+            guard (response?.data) != nil else { return }
         }
     }
 }

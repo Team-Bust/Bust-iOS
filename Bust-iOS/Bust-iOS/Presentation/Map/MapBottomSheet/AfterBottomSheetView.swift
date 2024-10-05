@@ -65,14 +65,14 @@ final class AfterBottomSheetView: PassThroughView {
         return label
     }()
     
-    private let checkAnswerButton = {
+    let checkAnswerButton = {
         let button = UIButton()
         button.setImage(.btnCheckAnswer, for: .normal)
         button.setImage(.btnCheckAnswer, for: .selected)
         return button
     }()
     
-    private let useTicketButton = {
+    let useTicketButton = {
         let button = UIButton()
         button.setImage(.btnUseTicket, for: .normal)
         button.setImage(.btnUseTicket, for: .selected)

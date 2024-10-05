@@ -1,5 +1,5 @@
 //
-//  CheckAnswerView.swift
+//  MyPlaceDetailView.swift
 //  Bust-iOS
 //
 //  Created by KJ on 10/5/24.
@@ -9,25 +9,23 @@ import UIKit
 
 import SnapKit
 
-enum AnswerViewType {
-    case correctAnswer
-    case useTicket
-}
-
-final class CheckAnswerView: UIScrollView {
+final class MyPlaceDetailView: UIView {
     
     // MARK: - UI Components
     
-    private let checkLabel = {
-        let label = UILabel()
-        label.text = "위치를 찾아\n티켓 1장을 얻었어요!"
-        label.textColor = .black
-        label.font = .fontBust(.heading3)
-        label.numberOfLines = 2
-        return label
+    private let navigationBar = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
     }()
     
-    private let answerImage = UIImageView(image: .imgActivity)
+    let backButton = {
+        let button = UIButton()
+        button.setImage(.icArrowBackTouch, for: .normal)
+        return button
+    }()
+    
+    private let placeImageView = UIImageView(image: .imgNight)
     
     private let locationNameLabel = {
         let label = UILabel()
@@ -57,9 +55,29 @@ final class CheckAnswerView: UIScrollView {
         return label
     }()
     
-    let hintView = WriteHintView()
+    private let myHintLabel = {
+        let label = UILabel()
+        label.text = "내가 작성한 힌트"
+        label.font = .fontBust(.body1)
+        label.textColor = .mainBlue
+        return label
+    }()
     
-    private let contentView = UIView()
+    private let myHintView = {
+        let view = UIView()
+        view.backgroundColor = .gray100
+        view.layer.cornerRadius = 8
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
+    private let myHintTextLabel = {
+        let label = UILabel()
+        label.text = "나의 힌트"
+        label.font = .fontBust(.body11)
+        label.textColor = .black
+        return label
+    }()
     
     // MARK: - Properties
     
@@ -67,24 +85,10 @@ final class CheckAnswerView: UIScrollView {
     
     // MARK: - View Life Cycle
     
-    init(_ type: AnswerViewType) {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setUI()
         setLayout()
-        
-        switch type {
-        case .correctAnswer:
-            hintView.isHidden = false
-        case .useTicket:
-            hintView.isHidden = true
-            checkLabel.text = "티켓을 사용해\n정답을 확인했어요!"
-            contentView.snp.makeConstraints {
-                $0.top.equalToSuperview()
-                $0.leading.trailing.equalToSuperview()
-                $0.width.equalTo(self.snp.width)
-                $0.bottom.equalTo(descriptionLabel.snp.bottom).offset(40)
-            }
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -92,42 +96,48 @@ final class CheckAnswerView: UIScrollView {
     }
 }
 
-extension CheckAnswerView {
+extension MyPlaceDetailView {
     
     // MARK: - UI Components Property
     
     private func setUI() {
-        self.backgroundColor = .white
+        
     }
     
     // MARK: - Layout Helper
     
     private func setLayout() {
         
-        self.addSubviews(contentView)
-        contentView.addSubviews(checkLabel, answerImage,
-                                locationNameLabel, locationDetailLabel,
-                           descriptionLabel, hintView)
+        navigationBar.addSubview(backButton)
+        myHintView.addSubview(myHintTextLabel)
         
-        checkLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(8)
-            $0.leading.equalToSuperview().inset(20)
+        addSubviews(navigationBar, placeImageView, locationNameLabel, locationDetailLabel,
+                    descriptionLabel, myHintLabel, myHintView)
+        
+        navigationBar.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(48)
         }
         
-        answerImage.snp.makeConstraints {
-            $0.top.equalTo(checkLabel.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview()
+        backButton.snp.makeConstraints {
+            $0.top.leading.equalToSuperview()
+        }
+        
+        placeImageView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom).offset(8)
+            $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(216)
         }
         
         locationNameLabel.snp.makeConstraints {
-            $0.top.equalTo(answerImage.snp.bottom).offset(20)
-            $0.leading.equalTo(checkLabel)
+            $0.top.equalTo(placeImageView.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().inset(20)
         }
         
         locationDetailLabel.snp.makeConstraints {
             $0.top.equalTo(locationNameLabel.snp.bottom).offset(8)
-            $0.leading.equalTo(checkLabel)
+            $0.leading.equalTo(locationNameLabel)
         }
         
         descriptionLabel.snp.makeConstraints {
@@ -137,26 +147,24 @@ extension CheckAnswerView {
             $0.height.equalTo(setDescriptionHeight(descriptionLabel.text ?? ""))
         }
         
-        hintView.snp.makeConstraints {
+        myHintLabel.snp.makeConstraints {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(30)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(150)
+            $0.leading.equalTo(locationNameLabel)
         }
         
-        contentView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
-            $0.width.equalTo(self.snp.width)
-            $0.bottom.equalTo(hintView.snp.bottom).offset(40)
+        myHintView.snp.makeConstraints {
+            $0.top.equalTo(myHintLabel.snp.bottom).offset(12)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(48)
+        }
+        
+        myHintTextLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(16)
         }
     }
     
     // MARK: - Methods
-     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.contentSize = contentView.frame.size
-    }
     
     private func setDescriptionHeight(_ text: String) -> Int {
         let string = text

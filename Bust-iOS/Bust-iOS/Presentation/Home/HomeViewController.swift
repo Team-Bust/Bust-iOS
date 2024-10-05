@@ -44,9 +44,11 @@ extension HomeViewController {
     func buttonTapped(_ sender: UIButton) {
         switch sender {
         case homeView.missionStartButton:
-            print("missionStartButton")
+            self.tabBarController?.selectedIndex = 1
         case homeView.registerPlaceButton:
-            print("registerPlaceButton")
+            let nav = AddLocationViewController()
+            nav.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(nav, animated: true)
         default:
             break
         }

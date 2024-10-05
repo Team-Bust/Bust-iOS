@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import Kingfisher
 
 final class CheckAnswerView: UIScrollView {
     
@@ -155,4 +156,19 @@ extension CheckAnswerView {
     }
     
     // MARK: - @objc Methods
+}
+
+extension CheckAnswerView {
+    
+    func bindCheckAnswer(model: MapCheckResponseDto) {
+        locationNameLabel.text = model.name
+        locationDetailLabel.text = "상세 위치 : \(model.address)"
+        locationDetailLabel.asLineHeight(.body21)
+        descriptionLabel.text = model.description
+        if model.image == "" {
+            answerImage.image = UIImage(resource: .imgLocationEmpty)
+        } else {
+            answerImage.kf.setImage(with: URL(string: model.image))
+        }
+    }
 }

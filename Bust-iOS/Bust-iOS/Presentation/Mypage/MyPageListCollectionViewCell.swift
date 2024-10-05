@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import Kingfisher
 
 final class MyPageListCollectionViewCell: UICollectionViewCell, UICollectionViewRegisterable {
     
@@ -63,6 +64,7 @@ private extension MyPageListCollectionViewCell {
     func setUI() {
         self.backgroundColor = .gray100
         self.layer.cornerRadius = 8
+        imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
     }
     
     func setHierarchy() {
@@ -107,6 +109,14 @@ extension MyPageListCollectionViewCell {
         placeNameLabel.text = data.placeName
         placeAddressLabel.text = "상세 위치 : \(data.address)"
         placeDateLabel.text = data.timestamp
+        if data.image == "" {
+            imageView.image = UIImage(resource: .imgMypageEmpty)
+        } else {
+            imageView.kf.setImage(with: URL(string: data.image))
+            imageView.clipsToBounds = true
+            imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+            imageView.layer.cornerRadius = 8
+        }
     }
 }
 

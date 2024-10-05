@@ -20,7 +20,7 @@
 		A48F50712CB01702004F3A74 /* KakaoSDKTemplate in Frameworks */ = {isa = PBXBuildFile; productRef = A48F50702CB01702004F3A74 /* KakaoSDKTemplate */; };
 		A48F50732CB01702004F3A74 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = A48F50722CB01702004F3A74 /* KakaoSDKUser */; };
 		A48F51442CB071B0004F3A74 /* usket.NMaps-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = A48F51432CB071B0004F3A74 /* usket.NMaps-SPM */; };
-		A48F54A92CB1A7F6004F3A74 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A48F54A82CB1A7F6004F3A74 /* Kingfisher */; };
+		A48F55702CB1AC69004F3A74 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A48F556F2CB1AC69004F3A74 /* Kingfisher */; };
 		A4B716B12CAFF78000F28562 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A4B716B02CAFF78000F28562 /* SnapKit */; };
 		A4B716B42CAFF7B700F28562 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A4B716B32CAFF7B700F28562 /* Moya */; };
 /* End PBXBuildFile section */
@@ -59,7 +59,7 @@
 				A4B716B42CAFF7B700F28562 /* Moya in Frameworks */,
 				A48F50652CB01702004F3A74 /* KakaoSDKCommon in Frameworks */,
 				A48F50692CB01702004F3A74 /* KakaoSDKFriendCore in Frameworks */,
-				A48F54A92CB1A7F6004F3A74 /* Kingfisher in Frameworks */,
+				A48F55702CB1AC69004F3A74 /* Kingfisher in Frameworks */,
 				A4B716B12CAFF78000F28562 /* SnapKit in Frameworks */,
 				A48F50632CB01702004F3A74 /* KakaoSDKCertCore in Frameworks */,
 				A48F506D2CB01702004F3A74 /* KakaoSDKShare in Frameworks */,
@@ -128,7 +128,7 @@
 				A48F50702CB01702004F3A74 /* KakaoSDKTemplate */,
 				A48F50722CB01702004F3A74 /* KakaoSDKUser */,
 				A48F51432CB071B0004F3A74 /* usket.NMaps-SPM */,
-				A48F54A82CB1A7F6004F3A74 /* Kingfisher */,
+				A48F556F2CB1AC69004F3A74 /* Kingfisher */,
 			);
 			productName = "Bust-iOS";
 			productReference = A4B716932CAFF67800F28562 /* Bust-iOS.app */;
@@ -163,7 +163,7 @@
 				A4B716B22CAFF7B700F28562 /* XCRemoteSwiftPackageReference "Moya" */,
 				A48F505B2CB01702004F3A74 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				A48F51422CB071B0004F3A74 /* XCRemoteSwiftPackageReference "usket" */,
-				A48F54A72CB1A7F6004F3A74 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				A48F556E2CB1AC69004F3A74 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A4B716942CAFF67800F28562 /* Products */;
@@ -427,7 +427,7 @@
 				kind = branch;
 			};
 		};
-		A48F54A72CB1A7F6004F3A74 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		A48F556E2CB1AC69004F3A74 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
 			requirement = {
@@ -519,9 +519,9 @@
 			package = A48F51422CB071B0004F3A74 /* XCRemoteSwiftPackageReference "usket" */;
 			productName = "usket.NMaps-SPM";
 		};
-		A48F54A82CB1A7F6004F3A74 /* Kingfisher */ = {
+		A48F556F2CB1AC69004F3A74 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A48F54A72CB1A7F6004F3A74 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = A48F556E2CB1AC69004F3A74 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 		A4B716B02CAFF78000F28562 /* SnapKit */ = {

@@ -54,6 +54,7 @@ final class CheckAnswerViewController: UIViewController {
         setDelegate()
         registerForKeyboardNotifications()
         setTapScreen()
+        setAddTarget()
         
         navigationController?.navigationBar.isHidden = true
     }
@@ -154,6 +155,11 @@ extension CheckAnswerViewController {
             view.addGestureRecognizer(tapGestureRecognizer)
     }
     
+    private func setAddTarget() {
+        backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
+        checkButton.addTarget(self, action: #selector(checkButtonDidTap), for: .touchUpInside)
+    }
+    
     // MARK: - @objc Methods
     
     @objc private func keyboardWillShow(notification: NSNotification) {
@@ -181,6 +187,16 @@ extension CheckAnswerViewController {
     private func didTapScreen(_ gesture: UITapGestureRecognizer) {
         gesture.location(in: self.view)
         self.view.endEditing(true)
+    }
+    
+    @objc
+    private func backButtonDidTap() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    private func checkButtonDidTap() {
+        print("checkButtonDidTap")
     }
 }
 

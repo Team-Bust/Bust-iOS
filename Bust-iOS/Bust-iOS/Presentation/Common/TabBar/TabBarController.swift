@@ -29,7 +29,6 @@ final class TabBarController: UITabBarController {
         setTabBarUI()
         setTabBarHeight()
     }
-    
 }
 
 private extension TabBarController {
@@ -37,7 +36,7 @@ private extension TabBarController {
     func setTabBarItems() {
         let homeVC = UINavigationController(rootViewController: HomeViewController())
         let mapVC = UINavigationController(rootViewController: MapViewController())
-        let mypageVC = UINavigationController(rootViewController: HomeViewController())
+        let mypageVC = UINavigationController(rootViewController: MypageViewController())
         
         tabItems = [
             homeVC,

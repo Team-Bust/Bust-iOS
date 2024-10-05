@@ -54,8 +54,7 @@ final class CheckAnswerView: UIScrollView {
     private let descriptionLabel = {
         let label = UILabel()
         label.text = """
-                    아라야 ! 나랑 놀고 싶어도 그렇지 어떻게 꿈에서까지 나올 수 있니ㅣ?\n
-                    이바보 바보~~~~~\n
+                    아라야 ! 나랑 놀고 싶어도 그렇지 어떻게 꿈에서까지 나올 수 있니ㅣ?\n이바보 바보~~~~~\n
                     우하하우히히 우하 하아후아후아
                     """
         label.font = .fontBust(.body11)
@@ -143,33 +142,17 @@ extension CheckAnswerView {
         
         contentView.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()  // 가로 크기를 UIScrollView에 고정
-            $0.width.equalTo(self.snp.width)  // contentView의 가로 크기를 UIScrollView와 동일하게 고정
+            $0.leading.trailing.equalToSuperview()
+            $0.width.equalTo(self.snp.width)
             $0.bottom.equalTo(hintView.snp.bottom).offset(40)
         }
     }
     
     // MARK: - Methods
-    
-//    private func setDescriptionSize(_ text: String) -> Int {
-//        let string = text
-//        let viewSize = Int(string.size(withAttributes: [NSAttributedString.Key.font:
-//                            UIFont.fontBust(.body11)]).height + 30)
-//
-//        return viewSize
-//    }
-    
-//    private func setupContentSize() {
-//        self.layoutIfNeeded()  // 레이아웃을 먼저 적용
-//        
-//        let totalHeight = hintView.frame.maxY + 40  // 마지막 뷰의 y값에 패딩을 더함
-//        self.contentSize = CGSize(width: self.frame.width, height: totalHeight)
-//    }
-//    
-    // MARK: - 레이아웃이 완료된 후 contentSize 설정
+     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.contentSize = contentView.frame.size  // contentView의 크기를 기반으로 contentSize 설정
+        self.contentSize = contentView.frame.size
     }
     
     // MARK: - @objc Methods

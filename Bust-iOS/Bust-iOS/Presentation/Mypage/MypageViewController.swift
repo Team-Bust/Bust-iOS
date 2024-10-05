@@ -69,7 +69,7 @@ extension MypageViewController {
     
     @objc
     private func settingButtonDidTap() {
-//        self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
+        self.navigationController?.pushViewController(SettingViewController(), animated: true)
     }
 }
 

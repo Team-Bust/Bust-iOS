@@ -10,7 +10,16 @@ import UIKit
 import Moya
 import SnapKit
 
+enum AnswerViewType {
+    case correctAnswer
+    case useTicket
+}
+
 final class CheckAnswerViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    var viewType: AnswerViewType
     
     // MARK: - UI Components
     
@@ -26,8 +35,8 @@ final class CheckAnswerViewController: UIViewController {
         return button
     }()
 
-    private let checkAnswerView = {
-        let view = CheckAnswerView(.correctAnswer)
+    lazy var checkAnswerView = {
+        let view = CheckAnswerView(self.viewType)
         view.isScrollEnabled = true
         view.showsVerticalScrollIndicator = true  // 세로 스크롤 표시
         view.showsHorizontalScrollIndicator = false
@@ -41,9 +50,16 @@ final class CheckAnswerViewController: UIViewController {
         return button
     }()
     
-    // MARK: - Properties
-    
     // MARK: - Initializer
+    
+    init(_ type: AnswerViewType) {
+        self.viewType = type
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Life Cycle
     

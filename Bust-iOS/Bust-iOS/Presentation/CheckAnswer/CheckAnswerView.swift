@@ -9,11 +9,6 @@ import UIKit
 
 import SnapKit
 
-enum AnswerViewType {
-    case correctAnswer
-    case useTicket
-}
-
 final class CheckAnswerView: UIScrollView {
     
     // MARK: - UI Components

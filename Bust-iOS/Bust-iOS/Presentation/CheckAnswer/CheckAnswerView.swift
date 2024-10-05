@@ -77,6 +77,20 @@ final class CheckAnswerView: UIScrollView {
         super.init(frame: .zero)
         setUI()
         setLayout()
+        
+        switch type {
+        case .correctAnswer:
+            hintView.isHidden = false
+        case .useTicket:
+            hintView.isHidden = true
+            checkLabel.text = "티켓을 사용해\n정답을 확인했어요!"
+            contentView.snp.makeConstraints {
+                $0.top.equalToSuperview()
+                $0.leading.trailing.equalToSuperview()
+                $0.width.equalTo(self.snp.width)
+                $0.bottom.equalTo(descriptionLabel.snp.bottom).offset(40)
+            }
+        }
     }
     
     required init?(coder: NSCoder) {

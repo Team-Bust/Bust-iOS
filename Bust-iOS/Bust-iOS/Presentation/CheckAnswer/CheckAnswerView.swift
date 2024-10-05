@@ -18,12 +18,6 @@ final class CheckAnswerView: UIScrollView {
     
     // MARK: - UI Components
     
-    private let backButton = {
-        let button = UIButton()
-        button.setImage(.icArrowBackTouch, for: .normal)
-        return button
-    }()
-    
     private let checkLabel = {
         let label = UILabel()
         label.text = "위치를 찾아\n티켓 1장을 얻었어요!"
@@ -63,7 +57,7 @@ final class CheckAnswerView: UIScrollView {
         return label
     }()
     
-    private let hintView = WriteHintView()
+    let hintView = WriteHintView()
     
     private let contentView = UIView()
     
@@ -111,17 +105,12 @@ extension CheckAnswerView {
     private func setLayout() {
         
         self.addSubviews(contentView)
-        contentView.addSubviews(backButton, checkLabel, answerImage,
+        contentView.addSubviews(checkLabel, answerImage,
                                 locationNameLabel, locationDetailLabel,
                            descriptionLabel, hintView)
         
-        backButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
-            $0.leading.equalToSuperview()
-        }
-        
         checkLabel.snp.makeConstraints {
-            $0.top.equalTo(backButton.snp.bottom).offset(8)
+            $0.top.equalToSuperview().offset(8)
             $0.leading.equalToSuperview().inset(20)
         }
         

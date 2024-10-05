@@ -20,6 +20,7 @@ final class CheckAnswerViewController: UIViewController {
     // MARK: - Properties
     
     var viewType: AnswerViewType
+    var correctAnswerData: MapCheckResponseDto?
     
     // MARK: - UI Components
     
@@ -96,6 +97,7 @@ extension CheckAnswerViewController {
     
     private func setUI() {
         self.view.backgroundColor = .white
+        checkAnswerView.bindCheckAnswer(model: self.correctAnswerData ?? MapCheckResponseDto(id: 0, image: "", name: "", address: "", description: ""))
     }
     
     // MARK: - Layout Helper

@@ -141,9 +141,6 @@ extension MapViewController {
     func checkAnswerButtonTapped() {
         if inScope { // 정답이슈
             self.getMapCheck()
-            let nav = CheckAnswerViewController(.correctAnswer)
-            nav.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(nav, animated: true)
         } else { // 틀림이슈
             self.mapView.wrongAnswerToast.isHidden = false
             UIView.animate(withDuration: 0.5, delay: 0.7, options: .curveEaseOut, animations: {
@@ -227,7 +224,10 @@ extension MapViewController {
     func getMapCheck() {
         MapService.shared.getMapCheck { response in
             guard let data = response?.data else { return }
-            dump(data)
+            let nav = CheckAnswerViewController(.correctAnswer)
+            nav.hidesBottomBarWhenPushed = true
+            nav.correctAnswerData = data
+            self.navigationController?.pushViewController(nav, animated: true)
         }
     }
     

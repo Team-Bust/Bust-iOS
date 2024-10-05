@@ -113,6 +113,9 @@ extension MyPageListCollectionViewCell {
             imageView.image = UIImage(resource: .imgMypageEmpty)
         } else {
             imageView.kf.setImage(with: URL(string: data.image))
+            imageView.clipsToBounds = true
+            imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+            imageView.layer.cornerRadius = 8
         }
     }
 }
